@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="校园失物招领信息平台。">
+  <title>校园失物招领</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#" aria-label="校园失物招领首页">
+        <span class="brand-mark" aria-hidden="true">寻</span>
+        <span class="brand-name">校园失物招领</span>
+      </a>
+      <button class="btn btn-primary js-publish" type="button">发布</button>
+    </div>
+  </header>
+
+  <main class="shell page">
+    <div class="page-head">
+      <h1>失物招领</h1>
+      <form class="search-form" id="searchForm" role="search">
+        <svg class="search-icon" viewBox="0 0 20 20" aria-hidden="true">
+          <circle cx="8.5" cy="8.5" r="5.5"></circle>
+          <path d="m13 13 4 4"></path>
+        </svg>
+        <label class="sr-only" for="searchInput">搜索物品</label>
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="搜索物品、地点"
+          autocomplete="off"
+        >
+        <button class="search-submit" type="submit">搜索</button>
+      </form>
+    </div>
+
+    <div class="toolbar">
+      <div class="segmented" role="group" aria-label="信息类型">
+        <button class="segment is-active" data-type="all" type="button">全部</button>
+        <button class="segment" data-type="lost" type="button">失物</button>
+        <button class="segment" data-type="found" type="button">招领</button>
+      </div>
+
+      <div class="category-filter" role="group" aria-label="物品分类">
+        <button class="chip is-active" data-category="all" type="button">不限</button>
+        <button class="chip" data-category="card" type="button">证件</button>
+        <button class="chip" data-category="electronics" type="button">电子设备</button>
+        <button class="chip" data-category="book" type="button">书籍</button>
+        <button class="chip" data-category="key" type="button">钥匙</button>
+        <button class="chip" data-category="other" type="button">其他</button>
+      </div>
+
+      <p class="result-text" aria-live="polite">
+        <strong id="resultCount">12</strong> 条
+      </p>
+    </div>
+
+    <div class="item-list" id="cardGrid"></div>
+
+    <div class="empty-state" id="emptyState" hidden>
+      <p class="empty-title">没有匹配的信息</p>
+      <div class="empty-actions">
+        <button class="btn btn-primary js-publish" type="button">发布</button>
+        <button class="btn btn-secondary" id="resetFiltersBtn" type="button">清除筛选</button>
+      </div>
+    </div>
+  </main>
+
+  <dialog class="detail-dialog" id="detailDialog" aria-labelledby="dialogTitle">
+    <form method="dialog" class="dialog-head">
+      <div>
+        <h2 id="dialogTitle">信息详情</h2>
+        <div class="dialog-badges">
+          <span class="badge" id="dialogBadge"></span>
+          <span class="category" id="dialogCategory"></span>
+        </div>
+      </div>
+      <button class="dialog-close" value="close" aria-label="关闭">×</button>
+    </form>
+    <div class="dialog-body">
+      <p class="dialog-desc" id="dialogDesc"></p>
+      <dl class="dialog-meta">
+        <div><dt>地点</dt><dd id="dialogLocation"></dd></div>
+        <div><dt>时间</dt><dd id="dialogDate"></dd></div>
+      </dl>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <template id="cardTemplate">
+    <article class="item-card">
+      <button class="card-link" type="button">
+        <span class="item-icon" aria-hidden="true"></span>
+        <span class="item-body">
+          <span class="card-top">
+            <span class="item-title"></span>
+            <span class="badge"></span>
+          </span>
+          <span class="item-desc"></span>
+          <dl class="item-meta">
+            <div><dt>地点</dt><dd class="item-location"></dd></div>
+            <div><dt>时间</dt><dd class="item-date"></dd></div>
+          </dl>
+        </span>
+        <span class="category"></span>
+        <span class="row-arrow" aria-hidden="true">→</span>
+      </button>
+    </article>
+  </template>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
