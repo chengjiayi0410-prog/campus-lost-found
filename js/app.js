@@ -117,9 +117,9 @@ const typeLabels = {
 };
 
 const categoryLabels = {
-  card: "证件卡片",
-  electronics: "电子产品",
-  book: "书籍资料",
+  card: "证件",
+  electronics: "电子设备",
+  book: "书籍",
   key: "钥匙",
   other: "其他"
 };
@@ -144,7 +144,6 @@ const cardGrid = document.querySelector("#cardGrid");
 const cardTemplate = document.querySelector("#cardTemplate");
 const emptyState = document.querySelector("#emptyState");
 const resultCount = document.querySelector("#resultCount");
-const totalCount = document.querySelector("#totalCount");
 const resetFiltersBtn = document.querySelector("#resetFiltersBtn");
 const detailDialog = document.querySelector("#detailDialog");
 const toast = document.querySelector("#toast");
@@ -194,6 +193,10 @@ function createCard(item) {
   const category = fragment.querySelector(".category");
 
   card.dataset.id = item.id;
+  fragment.querySelector(".card-link").setAttribute(
+    "aria-label",
+    `查看详情：${item.title}`
+  );
   badge.textContent = typeLabels[item.type];
   badge.classList.add(item.type === "lost" ? "badge-lost" : "badge-found");
   category.textContent = categoryLabels[item.category];
@@ -216,7 +219,6 @@ function render() {
 
   cardGrid.replaceChildren(fragment);
   resultCount.textContent = filteredItems.length;
-  totalCount.textContent = items.length;
   emptyState.hidden = filteredItems.length > 0;
 }
 
@@ -246,7 +248,7 @@ searchForm.addEventListener("submit", (event) => {
   event.preventDefault();
   state.keyword = searchInput.value;
   render();
-  document.querySelector(".browse").scrollIntoView({ behavior: "smooth" });
+  cardGrid.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 searchInput.addEventListener("input", () => {
